@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 
-@CrossOrigin(origins = "http://localhost:4200")
+//@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/api")
 public class CustomerController {
@@ -33,10 +33,9 @@ public class CustomerController {
     @GetMapping("/customers")
     public List<Customer> getAllCustomers() {
         System.out.println("Get all Customers...");
-
         List<Customer> customers = new ArrayList<>();
         repository.findAll().forEach(customers::add);
-
+        //CacheControl ccCacheOneHour = CacheControl.maxAge(1, TimeUnit.HOURS);
         return customers;
     }
 
@@ -46,6 +45,7 @@ public class CustomerController {
         Customer _customer = repository.save(new Customer(customer.getName(), customer.getAge()));
         return _customer;
     }
+
 
     @DeleteMapping("/customers/{id}")
     public ResponseEntity<String> deleteCustomer(@PathVariable("id") long id) {
