@@ -71,7 +71,12 @@ public class CustomerController {
         List<Customer> customers = repository.findByAge(age);
         return customers;
     }
+    @GetMapping(value = "customers/id/{id}")
+    public Optional<Customer> findById(@PathVariable long id) {
 
+        Optional<Customer> customers = repository.findById(id);
+        return customers;
+    }
     @PutMapping("/customers/{id}")
     public ResponseEntity<Customer> updateCustomer(@PathVariable("id") long id, @RequestBody Customer customer) {
         System.out.println("Update Customer with ID = " + id + "...");
@@ -89,3 +94,8 @@ public class CustomerController {
         }
     }
 }
+
+//todo dodac CahceControl np. na modyfikowana date
+// czy trzeba robic klienta
+//co to optional
+//o co chodzi z metoda findByAge

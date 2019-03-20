@@ -11,9 +11,10 @@ import javax.persistence.Table;
 @Table(name = "customer")
 public class Customer {
 
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    @GeneratedValue
+    private Long id;
 
     @Column(name = "name")
     private String name;
@@ -65,4 +66,33 @@ public class Customer {
     public String toString() {
         return "Customer [id=" + id + ", name=" + name + ", age=" + age + ", active=" + active + "]";
     }
+
+    @Override
+    public int hashCode() {
+        int iDhashCode = id.hashCode();
+        iDhashCode += 666 * name.hashCode();
+        iDhashCode += 666 * age;
+        if(active){
+            iDhashCode += 666 * 10;
+        }else{
+            iDhashCode += 666 * 20;
+        }
+
+        return iDhashCode;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Customer customer = (Customer) o;
+
+        if (!id.equals(customer.id)) return false;
+        if (!name.equals(customer.name)) return false;
+        if (!(age==customer.age)) return false;
+        if (active!=(customer.active)) return false;
+        return true;
+    }
+
 }
